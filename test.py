@@ -144,11 +144,32 @@ def click(event):
 	elif("*" not in clicked and "=" not in clicked and "|" not in clicked and ">" not in clicked and "/" not in clicked and "@" not in clicked):
 		result = ''
 		result = tkMessageBox.askquestion("Copy", "Do you want to copy this file to PC?", icon='warning')
-    	if result == 'yes':
+    	if (result == 'yes'):
         	copyFile(clicked)
         	tkMessageBox.showinfo(title="Copy", message="Done!")
     	else:
         	return
+
+def copyDir(event):
+	global content
+	global location
+	row = event.widget.grid_info()["row"]
+	column = event.widget.grid_info()["column"]
+	clicked = content[((row-1)*8 + column)-1]
+	if("/" in clicked):
+		result = tkMessageBox.askquestion("Copy", "Do you want to copy this folder to PC?", icon='warning')
+		if(result == 'yes'):
+			command = 'cp -r '+location+clicked+' /sdcard/ADM/'
+			runcmd(command)
+			os.system('adb pull /sdcard/ADM/'+clicked)
+			command = 'rm /sdcard/ADM/'+clicked
+			runcmd(command)
+			tkMessageBox.showinfo(title="Copy", message="Done!")
+			return
+		else:
+			return
+	else:
+		return
 
 
 def onClose():
@@ -195,6 +216,7 @@ def create_folder(label,nrow,ncolumn):
 	panel = Label(frame, text=label,image = folder,compound='top')
 	panel.grid(row = nrow, column = ncolumn)
 	panel.bind("<Button-1>", click)
+	panel.bind("<Button-3>", copyDir)
 	population.append(panel)
 
 def create_file(label,nrow,ncolumn):

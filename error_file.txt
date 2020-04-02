@@ -1,4 +1,2 @@
-/system/bin/sh: <stdin>[32]: cd: bad substitution
-/system/bin/sh: <stdin>[46]: cd: bad substitution
-/system/bin/sh: <stdin>[48]: cd: bad substitution
-/system/bin/sh: <stdin>[54]: cd: /data/data/com.blacklight.callbreak/app_webview/app_webview: No such file or directory
+rm: /sdcard/ADM/Camera/: Is a directory
+rm: /sdcard/ADM/Camera/: Is a directory
